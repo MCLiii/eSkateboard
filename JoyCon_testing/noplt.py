@@ -11,6 +11,6 @@ vertical = 0
 
 while(True):
     data = joycon.get_status()["analog-sticks"]
-    horizontal = (data['horizontal'] - 2174)/10
-    vertical = (data['vertical'] - 1856)/10
+    horizontal = (data["right"]['horizontal'] - 2174)/10
+    vertical = (data["right"]['vertical'] - 1856)/10
     print("x",horizontal, ", y", vertical)
