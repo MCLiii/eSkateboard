@@ -15,6 +15,7 @@ figure, ax = plt.subplots(figsize=(10, 10))
 plot1, = ax.plot(horizontal,vertical,marker="o", markersize=20)
 plt.xticks(np.linspace(-200,200))
 plt.yticks(np.linspace(-200,200))
+plt.xlabel("lol idk wtf")
 _x = [0]
 _y = [0]
 
@@ -24,10 +25,10 @@ def thread():
     global _x
     global _y
     while(True):
-        data = joycon.get_status()["analog-sticks"]["right"]
-        if (data['horizontal']/10 != x) and (data['vertical']/10 != y):
-            x = (data['horizontal'] - 2174) / 100
-            y = (data['vertical']-1856) / 100
+        data = joycon.get_status()['gyro']
+        if (data['z']/10 != x) and (data['y']/10 != y):
+            x = data['z'] / 10
+            y = data['y'] / 10
         _x.append(_x[len(_x)-1]+x)
         _y.append(_y[len(_y)-1]+y)
         #print(_x, ", ", _y)

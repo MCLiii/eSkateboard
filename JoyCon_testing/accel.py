@@ -15,34 +15,33 @@ figure, ax = plt.subplots(figsize=(10, 10))
 plot1, = ax.plot(horizontal,vertical,marker="o", markersize=20)
 plt.xticks(np.linspace(-200,200))
 plt.yticks(np.linspace(-200,200))
-_x = [0]
-_y = [0]
+x=0
+y=0
+z=0
 
 def thread():
-    x = 0
-    y = 0
-    global _x
-    global _y
+
+    global x
+    global y
+    global z
     while(True):
-        data = joycon.get_status()["analog-sticks"]["right"]
-        if (data['horizontal']/10 != x) and (data['vertical']/10 != y):
-            x = (data['horizontal'] - 2174) / 100
-            y = (data['vertical']-1856) / 100
-        _x.append(_x[len(_x)-1]+x)
-        _y.append(_y[len(_y)-1]+y)
-        #print(_x, ", ", _y)
+        data = joycon.get_status()["accel"]
+        x = data['x']/50
+        y = data['y']/50
+        z = data['z']/50
+        print(x,",",y,",",z)
         time.sleep(0.1)
 
 
-x = threading.Thread(target=thread)
-x.start()
+t = threading.Thread(target=thread)
+t.start()
 
 while(True):
 
     #time.sleep(0.01)
 
-    plot1.set_xdata(_x)
-    plot1.set_ydata(_y)
+    plot1.set_xdata(x)
+    plot1.set_ydata(z)
 
     figure.canvas.draw()
     figure.canvas.flush_events()

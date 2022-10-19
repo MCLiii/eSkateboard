@@ -10,7 +10,10 @@ horizontal = 0
 vertical = 0
 
 while(True):
-    data = joycon.get_status()["analog-sticks"]
-    horizontal = (data["right"]['horizontal'] - 2174)/10
-    vertical = (data["right"]['vertical'] - 1856)/10
-    print("x",horizontal, ", y", vertical)
+    data = joycon.get_status()
+    horizontal = (data["analog-sticks"]["right"]['horizontal'] - 2174)/10
+    vertical = (data["analog-sticks"]["right"]['vertical'] - 1856)/10
+    #print("x",horizontal, ", y", vertical)
+    gyro = data["gyro"]
+    print("x", gyro['x'], ", y", gyro['y'],"z",gyro['z'])
+    time.sleep(0.3)
